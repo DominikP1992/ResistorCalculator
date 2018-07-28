@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const PageWrapper = styled.div`
   display: flex;
-  padding-top:100px;
+  padding-top:20px;
   align-items: center;
   flex-direction: column;
   width: 100vw;

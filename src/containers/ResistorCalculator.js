@@ -147,7 +147,7 @@ class UserPhotoPage extends Component {
   };
 
   renderResistanceValue = () => (
-    <TextRow customStyle="margin-top:100px; color:tomato;">
+    <TextRow customStyle="margin-top:20px; color:tomato;">
       <TextCell customStyle="width:40%; text-align:right;">
         Resistor value:
       </TextCell>
