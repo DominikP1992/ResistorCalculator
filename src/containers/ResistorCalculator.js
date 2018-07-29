@@ -195,7 +195,6 @@ class ResistanceCalculator extends Component {
 
   renderInput = () => (
     <Input
-      autoFocus
       onChange={this.drawColorsFromResistance}
       onBlur={this.hideInput}
       onKeyUp={this.onInputKeyUp}
