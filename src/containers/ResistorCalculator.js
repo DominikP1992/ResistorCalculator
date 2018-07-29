@@ -159,7 +159,7 @@ class ResistanceCalculator extends Component {
     );
   };
 
-  hideInput = () => this.state.showInput && this.setState({ showInput: false });
+  hideInput = () => { this.setState({ showInput: false }); };
 
   renderColorPicker = () => {
     const {
@@ -208,7 +208,7 @@ class ResistanceCalculator extends Component {
 
   renderSpan = () => (
     <Span
-      onClick={() => this.setState({ showInput: true })}
+      onClick={() => this.setState({ showInput: true }, this.resistanceValueInput)}
       customStyle="margin-right:10px; cursor:pointer; text-decoration:underline;"
     >
       {this.state.formatedResistanceValue}
