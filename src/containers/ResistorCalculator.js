@@ -208,7 +208,7 @@ class ResistanceCalculator extends Component {
 
   renderSpan = () => (
     <Span
-      onClick={() => this.setState({ showInput: true }, this.resistanceValueInput)}
+      onClick={() => this.setState({ showInput: true })}
       customStyle="margin-right:10px; cursor:pointer; text-decoration:underline;"
     >
       {this.state.formatedResistanceValue}
