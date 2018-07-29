@@ -7,7 +7,7 @@ const TextCell = styled.div`
   text-align: center;
   box-sizing:border-box;
   display: inline-block;
-  font-size:30px;
+  font-size:25px;
   ${({ customStyle }) => customStyle};
 `;
 

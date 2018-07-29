@@ -73,7 +73,7 @@ export const multiplyValues = {
   [GRAY]: 10 ** 8,
   [WHITE]: 10 ** 9,
   [GOLD]: 10 ** -1,
-  [SILVER]: 10 ** -1,
+  [SILVER]: 10 ** -2,
 };
 
 export const toleranceValues = {
@@ -86,3 +86,6 @@ export const toleranceValues = {
   [GOLD]: '± 5%',
   [SILVER]: '± 10%',
 };
+
+export const maxResistance = 10 ** 10;
+export const minResistance = 10 ** -1;

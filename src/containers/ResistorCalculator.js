@@ -14,25 +14,32 @@ import {
   firstNumberValues,
   secondNumberValues,
   multiplyValues,
+  maxResistance,
+  minResistance,
 } from '../constants/ResistorConstants';
 
 // utils
 import {
   randomColor,
   getResistanceValue,
+  numToColor,
+  filterResistanceValue,
 } from '../utlis/ResistorCalculatorUtils';
 
 // components
 import ResistorCalculatorView from '../components/resistorCalculator/ResistorCalculatorView';
 import ResistorPicker from '../components/resistorCalculator/ResistorPicker';
+import ResistanceValue from '../components/resistorCalculator/ResistanceValue';
 import PopUp from '../components/generic/PopUp';
 import ColorPicker from './ColorPicker';
 import H1 from '../components/generic/H1';
 import H2 from '../components/generic/H2';
 import TextRow from '../components/generic/TextRow';
 import TextCell from '../components/generic/TextCell';
+import Input from '../components/generic/Input';
+import Span from '../components/generic/Span';
 
-class UserPhotoPage extends Component {
+class ResistanceCalculator extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,6 +47,9 @@ class UserPhotoPage extends Component {
       visible: false,
       mouted: false,
       resistanceValue: '0',
+      toleranceValue: '',
+      formatedResistanceValue: '',
+      showInput: false,
       buttonInfo: {
         firstButton: {
           points: firstBandButtonPoints,
@@ -109,10 +119,38 @@ class UserPhotoPage extends Component {
     );
   };
 
-  calculateResitance = () =>
+  calculateResitance = () => {
     this.setState({
-      resistanceValue: getResistanceValue(this.state.buttonInfo),
+      ...getResistanceValue(this.state.buttonInfo),
     });
+  };
+
+  drawColorsFromResistance = (e) => {
+    const { buttonInfo } = this.state;
+    const resistanceValue = filterResistanceValue(Number(e.target.value));
+    const colorObject = numToColor(resistanceValue);
+
+    this.setState(
+      {
+        buttonInfo: {
+          ...buttonInfo,
+          firstButton: {
+            ...buttonInfo.firstButton,
+            color: colorObject.firstNumber,
+          },
+          secondButton: {
+            ...buttonInfo.secondButton,
+            color: colorObject.secondNumber,
+          },
+          multiplyButton: {
+            ...buttonInfo.multiplyButton,
+            color: colorObject.multiply,
+          },
+        },
+      },
+      this.calculateResitance,
+    );
+  };
 
   renderColorPicker = () => {
     const {
@@ -146,13 +184,38 @@ class UserPhotoPage extends Component {
     );
   };
 
+  renderInput = () => (
+    <Input
+      onChange={this.drawColorsFromResistance}
+      onBlur={() => this.setState({ showInput: false })}
+      type="number"
+      min={minResistance}
+      max={maxResistance}
+      defaultValue={this.state.resistanceValue}
+    />
+  );
+
+  renderSpan = () => (
+    <Span
+      onClick={() => this.setState({ showInput: true })}
+      customStyle="margin-right:10px; cursor:pointer; text-decoration:underline;"
+    >
+      {this.state.formatedResistanceValue}
+    </Span>
+  );
+
   renderResistanceValue = () => (
     <TextRow customStyle="margin-top:20px; color:tomato;">
       <TextCell customStyle="width:40%; text-align:right;">
         Resistor value:
       </TextCell>
       <TextCell customStyle="width:60%; text-align:left;padding-left:10px;">
-        {this.state.resistanceValue}
+        <ResistanceValue
+          toleranceValue={this.state.toleranceValue}
+          resistanceValue={this.state.resistanceValue}
+        >
+          {this.state.showInput ? this.renderInput() : this.renderSpan()}
+        </ResistanceValue>
       </TextCell>
     </TextRow>
   );
@@ -163,7 +226,7 @@ class UserPhotoPage extends Component {
         4 Band Resistor Color Code Calculator
       </H1>
       <H2 customStyle="color:Tomato; margin-bottom:100px;">
-        tip: click on the band to change the color
+        click on the band to change the color or change resistance value
       </H2>
     </Fragment>
   );
@@ -183,4 +246,4 @@ class UserPhotoPage extends Component {
   }
 }
 
-export default UserPhotoPage;
+export default ResistanceCalculator;

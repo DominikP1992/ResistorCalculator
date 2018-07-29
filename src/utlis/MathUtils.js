@@ -13,3 +13,4 @@ export const nFormatter = (num) => {
   }
   return num.toFixed(1);
 };
+
