@@ -87,6 +87,13 @@ class ResistanceCalculator extends Component {
     clearTimeout(this.timeoutId);
   }
 
+  onInputKeyUp = (e) => {
+    if (e.key === 'Enter' || e.key === 'Escape') {
+      return this.hideInput();
+    }
+    return false;
+  };
+
   openColorPicker = key =>
     this.setState({
       visible: true,
@@ -152,14 +159,7 @@ class ResistanceCalculator extends Component {
     );
   };
 
-  hideInput = () => this.setState({ showInput: false });
-
-  onInputKeyUp = (e) => {
-    if (e.key === 'Enter' || e.key === 'Escape') {
-      return this.hideInput();
-    }
-    return false;
-  };
+  hideInput = () => this.state.showInput && this.setState({ showInput: false });
 
   renderColorPicker = () => {
     const {
@@ -202,7 +202,7 @@ class ResistanceCalculator extends Component {
       type="number"
       min={minResistance}
       max={maxResistance}
-      defaultValue={this.state.resistanceValue}
+      defaultValue={Number(this.state.resistanceValue).toFixed(1)}
     />
   );
 
