@@ -152,6 +152,15 @@ class ResistanceCalculator extends Component {
     );
   };
 
+  hideInput = () => this.setState({ showInput: false });
+
+  onInputKeyUp = (e) => {
+    if (e.key === 'Enter' || e.key === 'Escape') {
+      return this.hideInput();
+    }
+    return false;
+  };
+
   renderColorPicker = () => {
     const {
       buttonInfo, actualKey, visible, mouted,
@@ -186,8 +195,10 @@ class ResistanceCalculator extends Component {
 
   renderInput = () => (
     <Input
+      autoFocus
       onChange={this.drawColorsFromResistance}
-      onBlur={() => this.setState({ showInput: false })}
+      onBlur={this.hideInput}
+      onKeyUp={this.onInputKeyUp}
       type="number"
       min={minResistance}
       max={maxResistance}
